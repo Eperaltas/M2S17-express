@@ -7,9 +7,24 @@ const app = express();
 /* 3.- Pendiente */
 
 /* 4.- Crear rutas */
+app.get('/', (req, res) => {
+  res.send('Instrucciones')
+  });
 
-app.get('/ruta', (req, res) => {
-  res.send('Hola desde la ruta!!')
+app.get('/ruta/:uno/:dos/:tres/:mas', (req, res) => {
+  console.log(req.params.uno)
+  const { uno, dos, tres } = req.params
+  res.json({
+    mensaje: `${uno} ${dos} ${tres}`
+  })
+});
+
+app.get('/query', (req, res) => {
+  console.log(req.query)
+  const param1 = req.query.hola || 'No existe ningún parámetro';
+  res.json({
+    mensaje: `${param1}`
+  })
 });
 
 /* 5.- Iniciar servidor */
