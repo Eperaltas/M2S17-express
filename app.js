@@ -19,6 +19,14 @@ app.get('/', (req, res) => {
     )
     });
 
+app.get('/:id', (req, res) =>{
+  res.send(
+    {
+      mensaje: `${req.params.id} desde /:id`
+    }
+  )
+});
+
 app.get('/ruta/:uno/:dos/:tres/:mas', (req, res) => {
   console.log(req.params.uno)
   const { uno, dos, tres } = req.params
