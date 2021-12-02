@@ -11,6 +11,14 @@ app.get('/', (req, res) => {
   res.send('Instrucciones')
   });
 
+  app.get('/mensaje', (req, res) => {
+    res.send(
+    {
+        mensaje: 'Hola desde /mensaje'
+    }
+    )
+    });
+
 app.get('/ruta/:uno/:dos/:tres/:mas', (req, res) => {
   console.log(req.params.uno)
   const { uno, dos, tres } = req.params
@@ -19,13 +27,29 @@ app.get('/ruta/:uno/:dos/:tres/:mas', (req, res) => {
   })
 });
 
-app.get('/query', (req, res) => {
+//* Ejercicio: Añadir una ruta que reciba como parámetro un nombre y un apellido query string o parámetros en la ruta y devuelva como respuesta un mensaje usando el nombre y apellido //*
+//* Ejemplo: http://localhost:3000/mensaje/Edgar/Peralta o http://localhost:3000/mensaje?nombre=Edgar&apellido=Peralta *//
+//* Respuesta { mensaje: "Hola, Edgar Peralta"}
+
+app.get('/mensaje', (req, res) => {
   console.log(req.query)
-  const param1 = req.query.hola || 'No existe ningún parámetro';
+  const nombre = req.query.nombre || 'No existe ningún parámetro';
+  const apellido = req.query.apellido || 'No existe ningún parámetro';
   res.json({
-    mensaje: `${param1}`
+    mensaje: `${nombre} ${apellido}`
   })
 });
+
+//* Esto es por query string *//
+
+app.get('ruta/:nombre/:apellido', (req,res) =>  {
+  const {nombre,apellido} = req.params
+  res.json({
+    mensaje: `Hola, ${nombre} ${apellido}`
+  });
+}); 
+
+//* Esto es por ruta *//
 
 /* 5.- Iniciar servidor */
 app.listen(3000, ()=> {
